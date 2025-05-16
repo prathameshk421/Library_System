@@ -10,13 +10,13 @@ class Library
 
 public:
     Library();
-    bool load_data(const string &file_path);
-    bool save_data(const string &file_path);
+    void load_data(const string &books_data_path,const string& borrow_books_data_path);
+    void save_data(const string &books_data_path,const string& borrow_books_data_path);
     void add_book(const Book &book);
-    bool remove_book(const Book &book);
+    void remove_book(const Book &book);
     Book *find_book(const Book &book);
     vector<string> listAllBooks() const;
-    bool borrow_book(const Book &book);
-    bool return_book(const Book &book);
-    bool update_book(const Book &book);
+    void borrow_book(const Book &book);
+    void return_book(const Book &book);
+    void update_book(const Book &book);
 };

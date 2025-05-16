@@ -1,0 +1,11 @@
+index,ISBN,title,author,genre,copies,available_copies
+0,9780140449136,The Odyssey,Homer,Epic,10,6
+1,9780141439518,Pride and Prejudice,Jane Austen,Romance,8,5
+2,9780307277671,The Road,Cormac McCarthy,Post-apocalyptic,7,2
+3,9780061120084,To Kill a Mockingbird,Harper Lee,Fiction,12,7
+4,9780743273565,The Great Gatsby,F. Scott Fitzgerald,Classic,9,4
+5,9780553573404,A Game of Thrones,George R. R. Martin,Fantasy,15,10
+6,9780385472579,Zen and the Art of Motorcycle Maintenance,Robert M. Pirsig,Philosophy,5,3
+7,9780451524935,1984,George Orwell,Dystopian,11,1
+8,9780140283297,The Brothers Karamazov,Fyodor Dostoevsky,Philosophical Fiction,6,2
+9,9780140449266,Meditations,Marcus Aurelius,Stoicism,4,2
