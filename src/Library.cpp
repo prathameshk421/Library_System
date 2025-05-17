@@ -54,9 +54,16 @@ void Library::load_data(const string &books_data_path, const string &borrow_book
             getline(borrowed_book, id_str, ',');
             getline(borrowed_book, borrow_index, ',');
             getline(borrowed_book, due_date, ',');
-            int id = stoi(id_str);
-            if (index == borrow_index)
-                due_dates.push_back({id, due_date});
+            
+            try {
+                int id = stoi(id_str);
+                if (index == borrow_index)
+                    due_dates.push_back({id, due_date});
+            } catch (const invalid_argument& e) {
+                throw runtime_error("Invalid number format in borrowed books data file");
+            } catch (const out_of_range& e) {
+                throw runtime_error("Number too large in borrowed books data file");
+            }
         }
         if ((copies - due_dates.size()) != available_copies)
             throw runtime_error("Data provided is not matching available copies");

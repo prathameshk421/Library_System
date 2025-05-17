@@ -14,13 +14,11 @@ void print_menu()
     cout << "4. Return a book\n";
     cout << "5. Update book information\n";
     cout << "6. List all books\n";
-    cout << "7. Save data\n";
-    cout << "8. Load data\n";
     cout << "0. Exit\n";
     cout << "Enter your choice: ";
 }
 
-void add_book_test(Library &lib)
+void add_book(Library &lib)
 {
     string isbn, title, author, genre;
     int copies;
@@ -50,7 +48,7 @@ void add_book_test(Library &lib)
     }
 }
 
-void remove_book_test(Library &lib)
+void remove_book(Library &lib)
 {
     string isbn;
     cout << "Enter ISBN of book to remove: ";
@@ -67,7 +65,7 @@ void remove_book_test(Library &lib)
     }
 }
 
-void borrow_book_test(Library &lib)
+void borrow_book(Library &lib)
 {
     string isbn, due_date;
     cout << "Enter ISBN of book to borrow: ";
@@ -86,7 +84,7 @@ void borrow_book_test(Library &lib)
     }
 }
 
-void return_book_test(Library &lib)
+void return_book(Library &lib)
 {
     string isbn;
     int id;
@@ -106,7 +104,7 @@ void return_book_test(Library &lib)
     }
 }
 
-void update_book_test(Library &lib)
+void update_book(Library &lib)
 {
     string isbn, title, author, genre;
     int copies;
@@ -144,7 +142,7 @@ void update_book_test(Library &lib)
     }
 }
 
-void list_books_test(Library &lib)
+void list_books(Library &lib)
 {
     vector<string> books = lib.listAllBooks();
     if (books.empty())
@@ -164,13 +162,25 @@ int main()
 {
     Library lib;
     int choice;
-    const string BOOKS_FILE = "data/books.csv";
-    const string BORROWED_FILE = "data/borrowed.csv";
+    const string BOOKS_FILE = "../data/books.csv";
+    const string BORROWED_FILE = "../data/borrow_books.csv";
 
     try
     {
         lib.load_data(BOOKS_FILE, BORROWED_FILE);
         cout << "Data loaded successfully!\n";
+    }
+    catch (const invalid_argument& e)
+    {
+        cout << "Error: Invalid number format in data files.\n";
+        cout << "Please check if all numeric values are valid numbers.\n";
+        return 1;
+    }
+    catch (const out_of_range& e)
+    {
+        cout << "Error: Number too large in data files.\n";
+        cout << "Please check if any numeric values exceed the maximum limit.\n";
+        return 1;
     }
     catch (const runtime_error &e)
     {
@@ -185,47 +195,24 @@ int main()
         switch (choice)
         {
         case 1:
-            add_book_test(lib);
+            add_book(lib);
             break;
         case 2:
-            remove_book_test(lib);
+            remove_book(lib);
             break;
         case 3:
-            borrow_book_test(lib);
+            borrow_book(lib);
             break;
         case 4:
-            return_book_test(lib);
+            return_book(lib);
             break;
         case 5:
-            update_book_test(lib);
+            update_book(lib);
             break;
         case 6:
-            list_books_test(lib);
-            break;
-        case 7:
-            try
-            {
-                lib.save_data(BOOKS_FILE, BORROWED_FILE);
-                cout << "Data saved successfully!\n";
-            }
-            catch (const runtime_error &e)
-            {
-                cout << "Error saving data: " << e.what() << "\n";
-            }
-            break;
-        case 8:
-            try
-            {
-                lib.load_data(BOOKS_FILE, BORROWED_FILE);
-                cout << "Data loaded successfully!\n";
-            }
-            catch (const runtime_error &e)
-            {
-                cout << "Error loading data: " << e.what() << "\n";
-            }
+            list_books(lib);
             break;
         case 0:
-            cout << "Saving data before exit...\n";
             try
             {
                 lib.save_data(BOOKS_FILE, BORROWED_FILE);
@@ -235,12 +222,11 @@ int main()
             {
                 cout << "Error saving data: " << e.what() << "\n";
             }
-            cout << "Goodbye!\n";
+            cout << "Thank you for using the Library Management System!\n";
             return 0;
         default:
             cout << "Invalid choice. Please try again.\n";
         }
     }
-
     return 0;
 }
