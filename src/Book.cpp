@@ -2,6 +2,7 @@
 #include <sstream>
 #include <stdexcept>
 
+int id=0;
 Book::Book()
 {
     ISBN = title = author = genre = "";
@@ -26,12 +27,14 @@ Book::Book(const string &ISBN, const string &title, const string &author, const 
     this->available_copies = available_copies;
 }
 
-void Book::borrow_copy(const int &id, const string &due_date)
+int Book::borrow_copy(const string &due_date)
 {
     if (available_copies == 0)
         throw runtime_error("No Copies are Available at the moment");
     due_dates.push_back({id, due_date});
+    id++;
     available_copies--;
+    return id-1;
 }
 
 void Book::return_copy(const int &id)
@@ -51,6 +54,12 @@ void Book::return_copy(const int &id)
         throw runtime_error("Book with id not found");
 }
 
+vector<string> Book::books_info_data(){
+    return {ISBN,title,author,genre,to_string(copies),to_string(available_copies)};
+}
+vector<pair<int,string>> Book::borrow_book_info(){
+    return due_dates;
+}
 string Book::get_info()
 {
     ostringstream oss;
@@ -72,4 +81,8 @@ string Book::get_info()
 void Book::update_info(const Book &updated_book)
 {
     *this = updated_book;
+}
+
+string Book::get_isbn() const{
+    return ISBN;
 }
