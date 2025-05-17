@@ -141,9 +141,9 @@ void Library::save_data(const string &books_data_path,const string& borrow_books
         books_data<<data.str()<<'\n';
         vector<pair<int,string>> due_dates=b.borrow_book_info();
         stringstream data2;
-        for(int j=0;j<due_dates.size();i++){
-            data2<<due_dates[i].first;
-            data2<<","<<i<<due_dates[i].second;
+        for(int j=0;j<due_dates.size();j++){
+            data2<<due_dates[j].first;
+            data2<<","<<i<<","<<due_dates[j].second;
             borrow_books_data<<data2.str()<<'\n';
         }
     }
