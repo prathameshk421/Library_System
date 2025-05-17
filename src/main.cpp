@@ -159,7 +159,7 @@ void update_book(Library &lib)
         {
             copies = stoi(copies_str);
         }
-        catch (invalid_argument &e)
+        catch (const invalid_argument &e)
         {
             cout << "Error:" << e.what() << '\n';
         }
