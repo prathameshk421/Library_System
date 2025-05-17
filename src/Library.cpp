@@ -142,6 +142,11 @@ void Library::update_book(const Book &b)
     Book *target = find_book(b.get_isbn());
     if (target == nullptr)
         throw runtime_error("Book with ISBN Code give not found");
+    
+    // Check if new total copies is less than currently available copies
+    if (b.get_copies() < target->get_available_copies())
+        throw runtime_error("New total copies cannot be less than currently available copies");
+        
     Book &target_book = *target;
     target_book.update_info(b);
 }

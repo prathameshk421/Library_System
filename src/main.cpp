@@ -127,6 +127,8 @@ void update_book(Library &lib)
     string current_author = existing_book->get_author();
     string current_genre = existing_book->get_genre();
     int current_copies = existing_book->get_copies();
+    int current_available = existing_book->get_available_copies();
+    vector<pair<int, string>> current_due_dates = existing_book->borrow_book_info();
 
     cout << "Title [" << current_title << "]: ";
     cin.ignore();
@@ -152,7 +154,7 @@ void update_book(Library &lib)
 
     try
     {
-        Book updated_book(isbn, title, author, copies, copies, {}, genre);
+        Book updated_book(isbn, title, author, copies, current_available, current_due_dates, genre);
         lib.update_book(updated_book);
         cout << "Book updated successfully!\n";
     }

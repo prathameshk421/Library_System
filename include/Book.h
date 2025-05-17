@@ -20,6 +20,7 @@ public:
     string get_author() const;
     string get_genre() const;
     int get_copies() const;
+    int get_available_copies() const;
     int borrow_copy(const string &due_date);
     void return_copy(const int &id);
     vector<string> books_info_data();

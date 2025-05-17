@@ -102,3 +102,7 @@ string Book::get_genre() const {
 int Book::get_copies() const {
     return copies;
 }
+
+int Book::get_available_copies() const {
+    return available_copies;
+}
