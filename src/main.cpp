@@ -176,15 +176,12 @@ int main()
         cout << "Please check if all numeric values are valid numbers.\n";
         return 1;
     }
-    catch (const out_of_range& e)
-    {
-        cout << "Error: Number too large in data files.\n";
-        cout << "Please check if any numeric values exceed the maximum limit.\n";
-        return 1;
-    }
     catch (const runtime_error &e)
     {
-        cout << "No existing data found. Starting with empty library.\n";
+        cout << "Data files do not exist\n";
+        cout<<e.what()<<'\n';
+        cout<<"Exiting"<<'\n';
+        exit(0);
     }
 
     while (true)

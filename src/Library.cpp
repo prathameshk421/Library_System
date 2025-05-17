@@ -9,6 +9,7 @@ Library::Library() {
 
 void Library::load_data(const string &books_data_path, const string &borrow_books_data_path)
 {
+    
     ifstream books_data(books_data_path);
     ifstream borrow_books_data(borrow_books_data_path);
     if (!books_data.is_open())
@@ -70,6 +71,8 @@ void Library::load_data(const string &books_data_path, const string &borrow_book
         Book book_obj(ISBN, title, author, copies, available_copies, due_dates, genre);
         books.push_back(book_obj);
     }
+    books_data.close();
+    borrow_books_data.close();
 }
 
 void Library::add_book(const Book &b)
@@ -176,4 +179,6 @@ void Library::save_data(const string &books_data_path, const string &borrow_book
             borrow_books_data << data2.str() << '\n';
         }
     }
+    books_data.close();
+    borrow_books_data.close();
 }
