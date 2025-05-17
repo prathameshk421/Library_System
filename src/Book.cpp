@@ -86,3 +86,19 @@ void Book::update_info(const Book &updated_book)
 string Book::get_isbn() const{
     return ISBN;
 }
+
+string Book::get_title() const {
+    return title;
+}
+
+string Book::get_author() const {
+    return author;
+}
+
+string Book::get_genre() const {
+    return genre;
+}
+
+int Book::get_copies() const {
+    return copies;
+}

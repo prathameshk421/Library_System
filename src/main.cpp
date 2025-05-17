@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -120,15 +121,34 @@ void update_book(Library &lib)
     }
 
     cout << "Enter new details (press Enter to keep current value):\n";
-    cout << "Title [" << existing_book->get_info() << "]: ";
+    
+    // Get current values
+    string current_title = existing_book->get_title();
+    string current_author = existing_book->get_author();
+    string current_genre = existing_book->get_genre();
+    int current_copies = existing_book->get_copies();
+
+    cout << "Title [" << current_title << "]: ";
     cin.ignore();
     getline(cin, title);
-    cout << "Author: ";
+    if (title.empty()) title = current_title;
+
+    cout << "Author [" << current_author << "]: ";
     getline(cin, author);
-    cout << "Genre: ";
+    if (author.empty()) author = current_author;
+
+    cout << "Genre [" << current_genre << "]: ";
     getline(cin, genre);
-    cout << "Number of copies: ";
-    cin >> copies;
+    if (genre.empty()) genre = current_genre;
+
+    cout << "Number of copies [" << current_copies << "]: ";
+    string copies_str;
+    getline(cin, copies_str);
+    if (copies_str.empty()) {
+        copies = current_copies;
+    } else {
+        copies = stoi(copies_str);
+    }
 
     try
     {
