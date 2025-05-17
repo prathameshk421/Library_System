@@ -7,7 +7,7 @@
         "${workspaceFolder}/**",
         "${workspaceFolder}/include"
     ],
-    "C_Cpp.default.compilerPath": "/opt/homebrew/bin/g++-14",
-    "C_Cpp.default.cppStandard": "c++11",
-    "C_Cpp.default.intelliSenseMode": "gcc-x64"
+    "C_Cpp.default.compilerPath": "/usr/bin/clang++",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.intelliSenseMode": "clang-x64"
 }
