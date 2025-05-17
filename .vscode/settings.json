@@ -2,5 +2,12 @@
     "files.associations": {
         "istream": "cpp",
         "stdexcept": "cpp"
-    }
+    },
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/include"
+    ],
+    "C_Cpp.default.compilerPath": "/opt/homebrew/bin/g++-14",
+    "C_Cpp.default.cppStandard": "c++11",
+    "C_Cpp.default.intelliSenseMode": "gcc-x64"
 }

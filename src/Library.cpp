@@ -3,6 +3,10 @@
 #include <fstream>
 #include <sstream>
 
+Library::Library() {
+    // Library Started
+}
+
 void Library::load_data(const string &books_data_path, const string &borrow_books_data_path)
 {
     ifstream books_data(books_data_path);
