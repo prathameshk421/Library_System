@@ -24,8 +24,21 @@ A simple Library Management System built in C++ using object-oriented programmin
 
 ## 🚀 How to Compile and Run
 
-Open your terminal and run the following commands:
+Open your terminal and run one of the following commands:
 
+For g++ (Linux):
 ```bash
-g++ -std=c++11 src/*.cpp main.cpp -o LibrarySystem
-./LibrarySystem
+g++ -std=c++11 -I./include src/Book.cpp src/Library.cpp src/main.cpp -o library_system
+```
+
+For clang++ (macOS):
+```bash
+clang++ -std=c++11 -I./include src/Book.cpp src/Library.cpp src/main.cpp -o library_system
+```
+
+Then run the program:
+```bash
+./library_system
+```
+
+Note: If you encounter compilation errors with g++ on macOS, use clang++ instead as it's the default compiler on macOS.
