@@ -149,7 +149,12 @@ void update_book(Library &lib)
     if (copies_str.empty()) {
         copies = current_copies;
     } else {
-        copies = stoi(copies_str);
+        try{
+            copies = stoi(copies_str);
+        }
+        catch(invalid_argument &e){
+            cout<<"Error:"<<e.what()<<'\n';
+        }
     }
 
     try
