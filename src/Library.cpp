@@ -1,16 +1,15 @@
 #include "../include/Library.h"
 #include "../include/Book.h"
-#include<iostream>
+#include <iostream>
 #include <fstream>
 #include <sstream>
 
-Library::Library() {
-    // Library Started
+Library::Library(){
+    cout<<"Welcome to Library Management System!!\n";
 }
-
 void Library::load_data(const string &books_data_path, const string &borrow_books_data_path)
 {
-    
+
     ifstream books_data(books_data_path);
     ifstream borrow_books_data(borrow_books_data_path);
     if (!books_data.is_open())
@@ -53,7 +52,8 @@ void Library::load_data(const string &books_data_path, const string &borrow_book
         bool borrow_header = true;
         while (getline(borrow_books_data, borrow_book_info))
         {
-            if(borrow_header){
+            if (borrow_header)
+            {
                 borrow_header = false;
                 continue;
             }
@@ -142,11 +142,11 @@ void Library::update_book(const Book &b)
     Book *target = find_book(b.get_isbn());
     if (target == nullptr)
         throw runtime_error("Book with ISBN Code give not found");
-    
+
     // Check if new total copies is less than currently available copies
     if (b.get_copies() < target->get_available_copies())
         throw runtime_error("New total copies cannot be less than currently available copies");
-        
+
     Book &target_book = *target;
     target_book.update_info(b);
 }
@@ -181,7 +181,7 @@ void Library::save_data(const string &books_data_path, const string &borrow_book
         {
             stringstream data2;
             data2 << due_dates[j].first;
-            data2 << "," << i << "," << due_dates[j].second<<'\n';
+            data2 << "," << i << "," << due_dates[j].second << '\n';
             borrow_books_data << data2.str();
         }
     }
