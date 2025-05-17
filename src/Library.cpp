@@ -1,5 +1,6 @@
 #include "../include/Library.h"
 #include "../include/Book.h"
+#include<iostream>
 #include <fstream>
 #include <sstream>
 
@@ -13,10 +14,10 @@ void Library::load_data(const string &books_data_path, const string &borrow_book
     ifstream books_data(books_data_path);
     ifstream borrow_books_data(borrow_books_data_path);
     if (!books_data.is_open())
-        throw runtime_error("Cannot Open Books Data");
+        throw runtime_error(books_data_path);
     if (!borrow_books_data.is_open())
-        throw runtime_error("Cannot Open Borrow Books Data");
-    int header = true;
+        throw runtime_error(borrow_books_data_path);
+    bool header = true;
     string book_info;
     // getline returns a reference to input stream which has a conversion to bool that reflects if the stream is EOF or not
     while (getline(books_data, book_info))
@@ -41,33 +42,33 @@ void Library::load_data(const string &books_data_path, const string &borrow_book
         getline(book_object, author, ',');
         getline(book_object, genre, ',');
         getline(book_object, copies_str, ',');
-        getline(book_object, available_copies_str, ',');
+        getline(book_object, available_copies_str);
         // Implement try ,catch in main.cpp for this as stoi gives invalid_argument error
         copies = stoi(copies_str);
         available_copies = stoi(available_copies_str);
         string borrow_book_info;
         // Finding borrowed books of this index
+        borrow_books_data.clear();  // Clear any error flags
+        borrow_books_data.seekg(0); // Go back to start of file
+        bool borrow_header = true;
         while (getline(borrow_books_data, borrow_book_info))
         {
+            if(borrow_header){
+                borrow_header = false;
+                continue;
+            }
             // id,index,due_date
             string id_str, borrow_index, due_date;
             stringstream borrowed_book(borrow_book_info);
             getline(borrowed_book, id_str, ',');
             getline(borrowed_book, borrow_index, ',');
-            getline(borrowed_book, due_date, ',');
-            
-            try {
-                int id = stoi(id_str);
-                if (index == borrow_index)
-                    due_dates.push_back({id, due_date});
-            } catch (const invalid_argument& e) {
-                throw runtime_error("Invalid number format in borrowed books data file");
-            } catch (const out_of_range& e) {
-                throw runtime_error("Number too large in borrowed books data file");
-            }
+            getline(borrowed_book, due_date);
+            int id = stoi(id_str);
+            if (index == borrow_index)
+                due_dates.push_back({id, due_date});
         }
         if ((copies - due_dates.size()) != available_copies)
-            throw runtime_error("Data provided is not matching available copies");
+            throw runtime_error(book_info);
         Book book_obj(ISBN, title, author, copies, available_copies, due_dates, genre);
         books.push_back(book_obj);
     }
@@ -175,8 +176,8 @@ void Library::save_data(const string &books_data_path, const string &borrow_book
         for (int j = 0; j < due_dates.size(); j++)
         {
             data2 << due_dates[j].first;
-            data2 << "," << i << "," << due_dates[j].second;
-            borrow_books_data << data2.str() << '\n';
+            data2 << "," << i << "," << due_dates[j].second<<'\n';
+            borrow_books_data << data2.str();
         }
     }
     books_data.close();

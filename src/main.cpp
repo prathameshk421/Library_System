@@ -162,8 +162,8 @@ int main()
 {
     Library lib;
     int choice;
-    const string BOOKS_FILE = "../data/books.csv";
-    const string BORROWED_FILE = "../data/borrow_books.csv";
+    const string BOOKS_FILE = "data/books.csv";
+    const string BORROWED_FILE = "data/borrow_books.csv";
 
     try
     {
@@ -178,7 +178,6 @@ int main()
     }
     catch (const runtime_error &e)
     {
-        cout << "Data files do not exist\n";
         cout<<e.what()<<'\n';
         cout<<"Exiting"<<'\n';
         exit(0);
