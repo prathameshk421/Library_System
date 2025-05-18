@@ -122,7 +122,6 @@ void update_book(Library &lib)
 
     cout << "Enter new details (press Enter to keep current value):\n";
 
-    // Get current values
     string current_title = existing_book->get_title();
     string current_author = existing_book->get_author();
     string current_genre = existing_book->get_genre();

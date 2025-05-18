@@ -4,12 +4,13 @@
 #include <fstream>
 #include <sstream>
 
-Library::Library(){
-    cout<<"Welcome to Library Management System!!\n";
+Library::Library()
+{
+    cout << "Welcome to Library Management System!!\n";
 }
+
 void Library::load_data(const string &books_data_path, const string &borrow_books_data_path)
 {
-
     ifstream books_data(books_data_path);
     ifstream borrow_books_data(borrow_books_data_path);
     if (!books_data.is_open())
@@ -18,7 +19,6 @@ void Library::load_data(const string &books_data_path, const string &borrow_book
         throw runtime_error(borrow_books_data_path);
     bool header = true;
     string book_info;
-    // getline returns a reference to input stream which has a conversion to bool that reflects if the stream is EOF or not
     while (getline(books_data, book_info))
     {
         if (header)
@@ -34,7 +34,6 @@ void Library::load_data(const string &books_data_path, const string &borrow_book
         int available_copies;
         string copies_str;
         string available_copies_str;
-        // index,ISBN,title,author,genre,copies,available_copies
         getline(book_object, index, ',');
         getline(book_object, ISBN, ',');
         getline(book_object, title, ',');
@@ -42,13 +41,11 @@ void Library::load_data(const string &books_data_path, const string &borrow_book
         getline(book_object, genre, ',');
         getline(book_object, copies_str, ',');
         getline(book_object, available_copies_str);
-        // Implement try ,catch in main.cpp for this as stoi gives invalid_argument error
         copies = stoi(copies_str);
         available_copies = stoi(available_copies_str);
         string borrow_book_info;
-        // Finding borrowed books of this index
-        borrow_books_data.clear();  // Clear any error flags
-        borrow_books_data.seekg(0); // Go back to start of file
+        borrow_books_data.clear();
+        borrow_books_data.seekg(0);
         bool borrow_header = true;
         while (getline(borrow_books_data, borrow_book_info))
         {
@@ -57,7 +54,6 @@ void Library::load_data(const string &books_data_path, const string &borrow_book
                 borrow_header = false;
                 continue;
             }
-            // id,index,due_date
             string id_str, borrow_index, due_date;
             stringstream borrowed_book(borrow_book_info);
             getline(borrowed_book, id_str, ',');
@@ -125,7 +121,7 @@ int Library::borrow_book(const string &isbn, const string &due_date)
     if (target == nullptr)
         throw runtime_error("Book with ISBN Code give not found");
     Book &b = *target;
-    return b.borrow_copy(due_date); // will return id of the book borrowed
+    return b.borrow_copy(due_date);
 }
 
 void Library::return_book(const string &isbn, const int &id)
@@ -143,7 +139,6 @@ void Library::update_book(const Book &b)
     if (target == nullptr)
         throw runtime_error("Book with ISBN Code give not found");
 
-    // Check if new total copies is less than currently available copies
     if (b.get_copies() < target->get_available_copies())
         throw runtime_error("New total copies cannot be less than currently available copies");
 

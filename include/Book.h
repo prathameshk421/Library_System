@@ -24,7 +24,7 @@ public:
     int borrow_copy(const string &due_date);
     void return_copy(const int &id);
     vector<string> books_info_data();
-    vector<pair<int,string>> borrow_book_info();
+    vector<pair<int, string>> borrow_book_info();
     string get_info();
     void update_info(const Book &updated_book);
 };
