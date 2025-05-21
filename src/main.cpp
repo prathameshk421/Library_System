@@ -208,7 +208,7 @@ int main()
     {
         cout << "Error: Invalid number format in data files.\n";
         cout << "Please check if all numeric values are valid numbers.\n";
-        return 1;
+        exit(0);
     }
     catch (const runtime_error &e)
     {

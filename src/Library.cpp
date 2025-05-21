@@ -44,7 +44,6 @@ void Library::load_data(const string &books_data_path, const string &borrow_book
         copies = stoi(copies_str);
         available_copies = stoi(available_copies_str);
         string borrow_book_info;
-        borrow_books_data.clear();
         borrow_books_data.seekg(0);
         bool borrow_header = true;
         while (getline(borrow_books_data, borrow_book_info))
