@@ -44,6 +44,7 @@ void Library::load_data(const string &books_data_path, const string &borrow_book
         copies = stoi(copies_str);
         available_copies = stoi(available_copies_str);
         string borrow_book_info;
+        borrow_books_data.clear();
         borrow_books_data.seekg(0);
         bool borrow_header = true;
         while (getline(borrow_books_data, borrow_book_info))
@@ -59,9 +60,11 @@ void Library::load_data(const string &books_data_path, const string &borrow_book
             getline(borrowed_book, borrow_index, ',');
             getline(borrowed_book, due_date);
             int id = stoi(id_str);
+            cout<<index<<' '<<borrow_index<<'\n';
             if (index == borrow_index)
                 due_dates.push_back({id, due_date});
         }
+        cout<<due_dates.size()<<'\n';
         if ((copies - due_dates.size()) != available_copies)
             throw runtime_error(book_info);
         Book book_obj(ISBN, title, author, copies, available_copies, due_dates, genre);
